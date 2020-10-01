@@ -17,9 +17,11 @@
 package edu.eci.cvds.samples.services.client;
 
 
-
+import edu.eci.cvds.sampleprj.dao.mybatis.mappers.*;
+import edu.eci.cvds.samples.entities.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
 import java.sql.SQLException;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -62,12 +64,27 @@ public class MyBatisExample {
 
         SqlSession sqlss = sessionfact.openSession();
 
-        
-        //Crear el mapper y usarlo: 
-        //ClienteMapper cm=sqlss.getMapper(ClienteMapper.class)
-        //cm...
-        
-        
+
+        // ClienteMapper
+        ClienteMapper cm=sqlss.getMapper(ClienteMapper.class);
+        // CONSULTAR EL CLIENTE CON EL ID
+        System.out.println("*******consultarCliente*******");
+        System.out.println(cm.consultarCliente(703));
+        // CONSULTAR TODOS LOS CLIENTES
+        System.out.println("*******consultarClientes******");
+        System.out.println(cm.consultarClientes());
+        // AGREGAR ITEM RENTADO A CLIENTE
+        System.out.println("*agregarItemRentadoACliente***");
+        //cm.agregarItemRentadoACliente(703, 5, new Date(2020,9,30), new Date(2020,10,3));
+
+        //ItemMapper
+        ItemMapper it = sqlss.getMapper(ItemMapper.class);
+        //CONSULTAR ITEM POR SU ID
+        System.out.println("*******consultarItem***********");
+        System.out.println(it.consultarItem(5));
+        //CONSULTAR TODOS LOS ITEMS
+        System.out.println("*******consultarItems**********");
+        System.out.println(it.consultarItems());
         
         sqlss.commit();
         
